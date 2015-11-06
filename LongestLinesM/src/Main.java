@@ -1,11 +1,9 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
+import java.security.KeyStore.Entry;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,6 +13,7 @@ public class Main {
 	int numberOfLines = 0;
 	String[] textData;
 	static String path;
+	TreeMap<String ,Integer> wordsAndSize = new TreeMap<String , Integer>();
 	
 	
 	public int readNumberOfLines() throws IOException{
@@ -50,36 +49,24 @@ public class Main {
 	}
 	
 	
-	public void convertToBinary() throws IOException{
+	public void getLongestLines() throws IOException{
 		
 		readTheFile();
-		int number;
-		String convertedNum = null;
+		
 		
 		for (int line = 0 ; line < textData.length ; line++){
 
-				number = Integer.parseInt(textData[line].trim());
-				convertedNum = Integer.toBinaryString(number);
-				
-				System.out.println(countOnesToWord(convertedNum));
+				wordsAndSize.put(textData[line], textData.length);
+		}
+		
+		for (Map.Entry<String,Integer> entry : wordsAndSize.entrySet()){
+			
+			System.out.println(entry.getKey());
+			
 		}
 				
 	}
 
-	
-	public int countOnesToWord(String number){
-		
-		int count = 0;
-		Pattern pattern = Pattern.compile("([1])");
-		Matcher matcher = pattern.matcher(number);
-
-		while (matcher.find()) {
-			count++;
-		}
-		return count;
-
-	}	
-	
 	
 	
 	public static void main(String args[]){
@@ -90,7 +77,7 @@ public class Main {
 		
 		try {
 		
-			test1.convertToBinary();
+			test1.getLongestLines();
 		} 
 		catch (IOException e) {
 			System.out.println("File Error : " + e.getMessage());
