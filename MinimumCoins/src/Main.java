@@ -1,13 +1,6 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Main {
 
@@ -31,6 +24,7 @@ public class Main {
 	}
 
 	
+	
 	public String[] readTheFile() throws IOException{
 		
 	
@@ -50,65 +44,53 @@ public class Main {
 	}
 	
 	
-	public void convertToBinary() throws IOException{
+	public void calculateMinimumCoins() throws IOException{
 		
 		readTheFile();
 		int number;
-		int mod;
-		int div;
+		int modByFive;
+		int divisonByFive;
+		int divByThree = 0 ;
 		int coins = 0;
 		
 		for (int line = 0 ; line < textData.length ; line++){
 
 			   number = Integer.parseInt(textData[line]);
-			   mod = number%5;
-			   div = number/5;
-			   int div1 = 0 ;
-			   
-			   if( mod%5 == 0 ){
-				   
-				   coins = div;
-			   }
-			   
-			   else{
-				   
-				   
-				   if( mod%3 == 0){
+			   modByFive = number % 5;
+			   divisonByFive = number / 5;
+		
+				   if( modByFive%5 == 0 && number >=5 ){
 					   
-					   div1 =  div + mod/3;
-					   coins = div1;
+					   coins = divisonByFive;
 				   }
 				   
-				   else{ 
+				   else{
 					   
-					   if((mod%3)%1 == 0){
-					   
-						   coins = div + mod/3 + (mod/3)/1;
-					   
+					   if( modByFive%3 == 0 && number>=3){
+						   
+						   divByThree =  divisonByFive + modByFive/3;
+						   coins = divByThree;
 					   }
-				   }
-			   
-			   }   
-			   System.out.println(coins);
-		}
-				
-	}	
+					   else{ 
+						   
+						   if((modByFive%3)%1 == 0){						   
+							   coins = divisonByFive + modByFive/3 + modByFive/1;
+						   }
+					   }
+				   } 
+				   System.out.println(coins);  
+			  }
+			  
+		}	
+
 	
-	
-	public static void main(String args[]){
+	public static void main(String args[]) throws IOException{
 		
 		//path = args[0];
-		path = "/Users/Panos/Documents/GitHub Projects/CodeEv_Challenges/MinimumCoins/Sample_Data";
+		//path = "/Users/Panos/Documents/GitHub Projects/CodeEv_Challenges/MinimumCoins/Sample_Data";
+		path = "E:/GiHub Projects/CodeEv_Challenges/MinimumCoins/Sample_Data"; 
 		Main test1 = new Main();
-		
-		try {
-		
-			test1.convertToBinary();
-		} 
-		catch (IOException e) {
-			System.out.println("File Error : " + e.getMessage());
-		}
-					
-	}
-	
+		test1.calculateMinimumCoins();
+		System.exit(0);
+	}	
 }
